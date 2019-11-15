@@ -43,6 +43,30 @@ insert into bollette values(05, 10, '2019-06-01', 37, null);
 
 =========================================================================
 
+/*ESERCIZIO 1 SQL*/
+
+/*ESERCIZIO 1 ALGEBRA*/
+
+/*ESERCIZIO 2 SQL*/
+
+select titolare, count(*) AS numeroutenze
+from utenze
+group by titolare
+
+/*ESERCIZIO 2 ALGEBRA*/
+
+AGG titolare, COUNT(titolare) (utenze)
+
+/*ESERCIZIO 3 SQL*/
+
+select titolare as persona, sum(importo) as importototale
+from utenze join bollette on codice=utenza
+group by titolare
+
+/*ESERCIZIO 3 ALGEBRA*/
+
+AGG titolare, SUM(importo) (Utenze JOINcodice=utenza bollette)
+
 /*ESERCIZIO 4*/
 
 create or replace view Pagato as
