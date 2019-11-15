@@ -45,7 +45,24 @@ insert into bollette values(05, 10, '2019-06-01', 37, null);
 
 /*ESERCIZIO 1 SQL*/
 
+create or replace view uno as 
+select codice, indirizzo
+from utenze join bollette on codice=utenza
+
+create or replace view due as 
+select codice, indirizzo
+from utenze
+
+select *
+from due
+except
+select *
+from uno
+
 /*ESERCIZIO 1 ALGEBRA*/
+
+PROJ codice, indirizzo(utente) - (PROJ codice, indirizzo (utenze JOINcodice=utenza bollette))
+
 
 /*ESERCIZIO 2 SQL*/
 
