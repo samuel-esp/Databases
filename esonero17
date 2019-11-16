@@ -1,0 +1,37 @@
+create schema if not exists "exonero17";
+set search_path to "exonero17";
+
+drop table if exists studenti; 
+drop table if exists corsi; 
+drop table if exists esami; 
+
+create table studenti (matricola numeric not null primary key,
+cognome char(20) not null,
+nome char(20) not null,
+eta numeric);
+
+create table corsi (codice numeric not null primary key,
+titolo char(20) not null,
+CFU numeric not null);
+
+create table esami (corso numeric not null references corsi(codice),
+studente numeric not null references studenti(matricola),
+data date not null,
+voto numeric not null,
+primary key (corso, studente));
+
+
+insert into studenti values(1000,'Rossi', 'Mario', '12');
+insert into studenti values(1001,'Rossi', 'Bianchi', '12');
+insert into studenti values(1002,'Rossi', 'Luigi', '12');
+insert into studenti values(1003,'Bianchi', 'Mario', '12');
+
+insert into corsi values(01,'Analisi', 12);
+insert into corsi values(02,'Fisica', 12);
+insert into corsi values(03,'Geometria', 12);
+insert into corsi values(04,'Chimica', 6);
+
+insert into esami values(01, 1000, '2019-01-01', 30);
+insert into esami values(02, 1000, '2019-01-01', 27);
+insert into esami values(03, 1003, '2019-01-01', 28);
+insert into esami values(03, 1000, '2019-01-01', 28);
