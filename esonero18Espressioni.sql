@@ -121,6 +121,7 @@ passodue = SEL listacodici, SUM(totalepagato), SUM(totaledapagare) ( GROUP BY li
 select isnull(pag, 0 ) from passodue
 select isnull(dapag, 0 ) from passodue
 
+create or replace view debitoview as
 select listacodici as utenza, totalePagato, totaleDaPagare, totalePagato-TotaleDaPagare as debito
 from passodue
 
@@ -130,7 +131,28 @@ Pagato = REN cod_uno, totalePagato<-codice, SUM(importo) (PROJ codice, SUM(impor
 DaPagare = REN cod_due, totaleDaPagare<-codice, SUM(importo) (PROJ codice, SUM(importo) ( AGG codice ( SEL datapagamento=null (Utenze JOINcodice=utenza Bollette)))
 passouno = REN listacodici<-cod_uno (PROJ (cod_uno, totalePagato, totaleDaPagare=0) UNION PROJ (cod_due, totalePagato as 0, totaleDaPagare=0 )
 passodue = PROJ listacodici, SUM(totalepagato), SUM(totaledapagare) ( AGG listacodici (passouno))
-PROJ listacodici, totalePagato, totaleDaPagare, totalePagato-TotaleDaPagare
+debitoview = PROJ listacodici, totalePagato, totaleDaPagare, totalePagato-TotaleDaPagare
 
 /*ESERCIZIO 5 SQL*/
 
+/*Riparto dalla vista creata nell'esercizio 4*/
+
+create or replace view uno as 
+select max(debito) as massimo
+from debitoview
+
+create or replace view due as
+select *
+from debitoview, debito
+
+select debito
+from due
+where debito = massimo
+
+/*ESERCIZIO 5 ALGEBRA*/
+
+/*Riparto dalla vista creata nell'esercizio 4*/
+
+uno = REN massimo <-MAX (debito) (debitoview)
+due = debitpview JOIN debito
+tre = SEL debito = massimo (due)
