@@ -1,0 +1,41 @@
+create schema if not exists "esonero15";
+set search_path to "esonero15";
+
+drop table if exists produttori; 
+drop table if exists molecole; 
+drop table if exists farmaci;
+
+CREATE TABLE produttori ( 
+codproduttore integer NOT NULL PRIMARY KEY,
+nome text NOT NULL,
+nazione text NOT NULL);
+
+CREATE TABLE molecole ( 
+identification integer NOT NULL PRIMARY KEY,
+nome text NOT NULL,
+categoria text NOT NULL);
+
+CREATE TABLE farmaci ( 
+codice numeric NOT NULL PRIMARY KEY,
+nomefarmaco text NOT NULL,
+molecola integer NOT NULL REFERENCES molecole(identification),
+produttore integer NOT NULL REFERENCES produttori(codproduttore),
+prezzo text NOT NULL
+);
+
+insert into produttori values(1,'Alfa', 'Italia');
+insert into produttori values(2,'Beta', 'Francia');
+insert into produttori values(3,'Gamma', 'Germania');
+insert into produttori values(4,'Delta', 'Spagna');
+
+insert into molecole values(1,'S2O', 'Anti-Raffreddore');
+insert into molecole values(2,'HH2', 'Influenza');
+insert into molecole values(3,'C2H', 'Anti-Raffreddore');
+insert into molecole values(4,'H2H', 'Tachipirina');
+insert into molecole values(5,'NAOH', 'Antiasmatico');
+
+insert into farmaci values(1, 'Betotal', 1, 1, 10);
+insert into farmaci values(2, 'Augmentin', 2, 2, 15);
+insert into farmaci values(3, 'Betotal Plus', 1, 1, 20);
+insert into farmaci values(4, 'Tachipirina', 4, 4, 5);
+insert into farmaci values(5, 'Flixotidine', 5, 4, 0);
