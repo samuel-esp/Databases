@@ -1,0 +1,100 @@
+create schema if not exists "esonero16";
+set search_path to "esonero16";
+
+drop table if exists prodotti; 
+drop table if exists magazzini; 
+drop table if exists giacenze; 
+drop table if exists ordini; 
+
+create table prodotti (codice numeric not null primary key,
+nome char(20) not null,
+prezzo numeric not null);
+
+create table magazzini (codice numeric not null primary key,
+nome char(20) not null,
+citta numeric not null);
+
+create table giacenze (prodotto numeric not null references prodotti(codice),
+magazzino numeric not null references magazzini(codice),
+quantita numeric not null);
+
+create table ordini (codice numeric not null primary key,
+prodotto numeric not null references prodotto(codice),
+quantita numeric not null);
+
+
+insert into prodotti values(1,'Frigo 12', 1000);
+insert into prodotti values(2,'Lavatutto', 800);
+insert into prodotti values(3,'Stirabene', 50);
+insert into prodotti values(4,'PilaStilo', 1);
+
+insert into magazzini values(11,'Nuovo Nord', 'Milano');
+insert into magazzini values(11,'Uno', 'Milano');
+insert into magazzini values(11,'Centro', 'Latina');
+insert into magazzini values(11,'Sud', 'Caserta');
+
+insert into giacenze values(1, 11, 3);
+insert into giacenze values(1, 12, 2);
+insert into giacenze values(2, 11, 1);
+insert into giacenze values(3, 11, 10);
+insert into giacenze values(4, 11, 100);
+insert into giacenze values(4, 12, 200);
+insert into giacenze values(4, 13, 150);
+insert into giacenze values(4, 14, 150);
+
+insert into ordini values(101, 1, 2);
+insert into ordini values(102, 2, 2);
+insert into ordini values(103, 2, 1);
+insert into ordini values(104, 3, 1);
+insert into ordini values(105, 4, 500);
+insert into ordini values(106, 4, 300);
+create schema if not exists "esonero16";
+set search_path to "esonero16";
+
+drop table if exists prodotti; 
+drop table if exists magazzini; 
+drop table if exists giacenze; 
+drop table if exists ordini; 
+
+create table prodotti (codice numeric not null primary key,
+nome char(20) not null,
+prezzo numeric not null);
+
+create table magazzini (codice numeric not null primary key,
+nome char(20) not null,
+citta char(20) not null);
+
+create table giacenze (prodotto numeric not null references prodotti(codice),
+magazzino numeric not null references magazzini(codice),
+quantita numeric not null);
+
+create table ordini (codice numeric not null primary key,
+prodotto numeric not null references prodotti(codice),
+quantita numeric not null);
+
+
+insert into prodotti values(1,'Frigo 12', 1000);
+insert into prodotti values(2,'Lavatutto', 800);
+insert into prodotti values(3,'Stirabene', 50);
+insert into prodotti values(4,'PilaStilo', 1);
+
+insert into magazzini values(11,'Nuovo Nord', 'Milano');
+insert into magazzini values(12,'Uno', 'Milano');
+insert into magazzini values(13,'Centro', 'Latina');
+insert into magazzini values(14,'Sud', 'Caserta');
+
+insert into giacenze values(1, 11, 3);
+insert into giacenze values(1, 12, 2);
+insert into giacenze values(2, 11, 1);
+insert into giacenze values(3, 11, 10);
+insert into giacenze values(4, 11, 100);
+insert into giacenze values(4, 12, 200);
+insert into giacenze values(4, 13, 150);
+insert into giacenze values(4, 14, 150);
+
+insert into ordini values(101, 1, 2);
+insert into ordini values(102, 2, 2);
+insert into ordini values(103, 2, 1);
+insert into ordini values(104, 3, 1);
+insert into ordini values(105, 4, 500);
+insert into ordini values(106, 4, 300);
